@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars:
+    description: just checking description variable
+  tasks:
+  - name: create a file from jinja2 template
+    template:
+      src: information.j2
+      dest: /home/ansible/information
+

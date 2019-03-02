@@ -1,0 +1,10 @@
+---
+# handlers file for infosis.apache
+- name: restart apache for deb
+  service:
+    name: "{{pack_name_deb}}"
+    state: restarted
+- name: restart apache for rhel
+  service:
+    name: "{{pack_name_rhel}}"
+    state: restarted

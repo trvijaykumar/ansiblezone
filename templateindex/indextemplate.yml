@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  vars:
+    inst_name: kelly-devops
+  become: yes
+  tasks:
+  - name: this task will install httpd package
+    yum:
+      name: httpd
+      state: present
+  - name: this task will start and enable httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  - name: this task will copy file index.htmml from jinja2 template
+    template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+    notify: restart httpd
+  handlers:
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted

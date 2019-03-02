@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: this task will start httpd service when os_family is redhat
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_os_family=="RedHat"
+    tags:
+    - start
+  - name: this task will start apache2 service when os_family is ubuntu
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_os_family=="Ubuntu"
+    tags:
+    - apt
+    - start
+  - name: this task will uninstall httpd package
+    yum:
+      name: httpd
+      state: absent
+    tags:
+    - uninstall

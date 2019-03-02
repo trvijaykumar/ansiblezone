@@ -1,0 +1,29 @@
+---
+- hosts: own
+  become: yes
+  tasks:
+  - name: this task will install java1.8
+    yum:
+      name: java-1.8.0-openjdk.x86_64
+      state: present
+  - name: this task will install tomcat package
+    yum:
+      name: tomcat
+      state: present
+  - name: this task will install jenkins in tomcat's webapps folder
+    get_url:
+      url: http://ftp-nyc.osuosl.org/pub/jenkins/war-stable/2.150.3/jenkins.war
+      dest: /usr/share/tomcat/webapps/jenkins.war
+  - name: installing jenkins repo folder
+    get_url:
+      url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+      dest: /usr/share/tomcat/jenkins.repo
+  - name: import jenkins key
+    rpm_key:
+      state: present
+      key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+  - name: this task will start tomcat service
+    service:
+      name: tomcat
+      state: started
+      enabled: yes

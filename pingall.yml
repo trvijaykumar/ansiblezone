@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+  - name: this task will ping all the machines
+    ping:
+  - name: this task will tell who am i
+    command: whoami
+  - name: this task will tell present working directory
+    command: pwd

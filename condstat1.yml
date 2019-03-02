@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: this task will install apache if os_family is redhat
+    yum:
+      name: httpd
+      state: present
+    when: ansible_os_family=="RedHat"
+  - name: this task will install apache2 if os_family is ubuntu
+    apt:
+      name: apache2
+      sate: present
+    when: ansible_os_family=="Ubuntu"
+

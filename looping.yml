@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: this task will install each item which is in with_items
+    yum:
+      name: "{{item}}"
+      state: present
+    with_items:
+    - git
+    - tree
+    - wget
+

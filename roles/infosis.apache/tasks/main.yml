@@ -1,0 +1,39 @@
+---
+# tasks file for infosis.apache
+- name: this task will install apache for rhel
+  yum:
+    name: "{{pack_name_rhel}}"
+    state: present
+  when: ansible_os_family=="RedHat"
+- name: this task will install apache for debian
+  apt:
+    name: "{{pack_name_deb}}"
+    state: present
+  when: ansible_os_family=="Debian"
+- name: set service name for deian
+  set_fact:
+    serv_name: "{{pack_name_deb}}"
+  when: ansible_os_family=="Debian"
+- name: set service name for rhel
+  set_fact:
+    serv_name: "{{pack_name_rhel}}"
+  when: ansible_os_family=="RedHat"
+- name: this task will start apache service
+  service:
+    name: "{{serv_name}}"
+    state: started
+    enabled: yes
+- name: this task will restart apache service for rhel
+  debug:
+    msg: restarting
+  notify: restart apache for rhel
+  when: ansible_os_family=="RedHat"
+- name: copying index.html file from jinja template
+  template:
+    src: templates/index.html.j2
+    dest: /var/www/html/index.html
+- name: this task will restart apache service for debian
+  debug:
+    msg: ;lkj;lkj
+  notify: restart apache for deb
+  when: ansible_os_family=="Debian"

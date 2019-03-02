@@ -1,0 +1,7 @@
+---
+- hosts: localhost 
+  become: yes
+  tasks: 
+  - name: this task will display group variable
+    debug:
+      msg: "{{log_folder}}"

@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: this task will store return value of a command into a variable
+    command: cat /etc/ansible/test.txt
+    ignore_errors: yes
+    register: cat_content
+  - name: this task will display conntents of cat_content
+    debug:
+      msg: "{{cat_content}}"
+    when: cat_content.stderr==""
+  - name: this task will display only content of file
+    debug:
+      msg: "{{cat_content.stdout_lines}}"
+  - name: this task will display is there any error
+    debug:
+      msg: "{{cat_content.stderr}}"
+

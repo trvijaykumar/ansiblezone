@@ -1,0 +1,5 @@
+---
+# vars file for infosis.apache
+pack_name_deb: apache2
+pack_name_rhel: httpd
+web_file_path: /var/www/html/index.html

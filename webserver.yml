@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: this task will uninstall httpd package
+    yum:
+      name: httpd
+      state: absent
+ 
